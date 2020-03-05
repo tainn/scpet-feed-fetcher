@@ -5,7 +5,7 @@
 Automated discord webhook posting of entries published to the two primary scpet news and updates rss feeds.
 
 ## Requirements
-`scpet-rss` requires the [feedparser](https://github.com/kurtmckee/feedparser) and [ookami](https://github.com/tainn1/ookami) packages in order to parse and manipulate discord webhook data respectively.
+`scpet-rss` requires the [feedparser](https://github.com/kurtmckee/feedparser) and [ookami](https://github.com/tainn/ookami) packages in order to parse and manipulate discord webhook data respectively.
 
 ## Usage
 - Webhook url should be specified separately in a local `hook.txt` file
