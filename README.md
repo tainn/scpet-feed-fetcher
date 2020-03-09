@@ -14,7 +14,7 @@ Automated discord webhook posting of entries published to the two primary scpet 
 
 ## Run
 ```sh
-cd /path/to/dir
+cd /path/to/rss
 
 chmod +x ./rss.py
 
