@@ -1,5 +1,5 @@
 # scpet-rss
-![Version](https://img.shields.io/badge/version-v1.0-blue)
+![Version](https://img.shields.io/badge/version-v1.1-blue)
 ![License](https://img.shields.io/badge/license-GPLv3-orange)
 
 Automated discord webhook posting of entries published to the two primary scpet [news](https://vss.scpet.si/vss/rss.php?sec=news) and [updates](https://vss.scpet.si/vss/rss.php?sec=obvestila) rss feeds.
