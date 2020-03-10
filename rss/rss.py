@@ -57,17 +57,19 @@ def populate(datatype, typename: str, links: str, form) -> None:
         if 'EKO' in entry['title'] and 'TK' not in entry['title']:
             continue
 
-        summary = entry['description'].split('&lt;br&gt;')[0]
         link = entry["link"].replace('www.scpet.net', 'vss.scpet.si')
-        datetime = ' '.join(entry['published'].split()[0:4])
 
         if link in links:
             continue
 
+        typeid = f'{typename} (id {link.split("=")[-1]})'
+        summary = entry['description'].split('&lt;br&gt;')[0]
+        datetime = ' '.join(entry['published'].split()[0:4])
+
         with open('rss.txt', 'a') as wf:
             wf.write(f'{link}\n')
 
-        form.embeds_fields(name=typename, value=f'[{summary}]({link})\n{datetime}', inline=True)
+        form.embeds_fields(name=typeid, value=f'[{summary}]({link})\n{datetime}', inline=True)
 
 
 def post(form, hook: str) -> None:
