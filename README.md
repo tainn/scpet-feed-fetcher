@@ -29,7 +29,7 @@ cd /path/to/rss
 
 docker build --tag scpet-rss .
 
-docker container run -d --rm scpet-rss
+docker container run -d scpet-rss
 ```
 
 ### Stop
@@ -37,7 +37,7 @@ docker container run -d --rm scpet-rss
 docker container stop <NAME>
 ```
 
-The daemon can be stopped (and removed due to the `--rm` option at run) by referencing either the `CONTAINER ID` or `NAME`, both of which can be accessed under the running containers list:
+The daemon can be stopped by referencing either the `CONTAINER ID` or `NAME`, both of which can be accessed under the running containers list:
 ```sh
 docker ps | grep -E "NAMES|scpet-rss"
 ```
