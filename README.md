@@ -12,11 +12,32 @@ Automated discord webhook posting of entries published to the two primary scpet 
 - Saving of exhausted links should be made to a local `rss.txt` file
 - `hook.txt` and `rss.txt` should be located in the same directory as the executable
 
-## Run
+## Direct run
 ```sh
 cd /path/to/rss
 
 chmod +x ./rss.py
 
 ./rss.py
+```
+
+## Docker
+
+### Build and run
+```sh
+cd /path/to/rss
+
+docker build --tag scpet-rss .
+
+docker container run -d --rm scpet-rss
+```
+
+### Stop
+```sh
+docker container stop <NAME>
+```
+
+The daemon can be stopped (and removed due to the `--rm` option at run) by referencing either the `CONTAINER ID` or `NAME`, both of which can be accessed under the running containers list:
+```sh
+docker ps | grep -E "NAMES|scpet-rss"
 ```
