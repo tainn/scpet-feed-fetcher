@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import time
+import os
 import feedparser
 from ookami import ookami
 
@@ -10,7 +11,7 @@ def main() -> None:
     initializes the default webhook form, calls the webhook population, and makes a post request"""
 
     while True:
-        hook = get_hook()
+        hook = os.environ['HOOK'] if os.getenv('TOKEN') else get_hook()
         news, obvestila = parse_rss()
         links = past_links()
 

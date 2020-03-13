@@ -1,0 +1,9 @@
+version: '3'
+services:
+
+  rss:
+    build:
+      context: .
+    restart: always
+    volumes:
+      - ./rss/rss.txt:/rss/rss.txt

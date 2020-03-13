@@ -8,11 +8,12 @@ Automated discord webhook posting of entries published to the two primary scpet 
 `scpet-rss` requires the [feedparser](https://github.com/kurtmckee/feedparser) and [ookami](https://github.com/tainn/ookami) packages in order to parse and manipulate discord webhook data respectively.
 
 ## Usage
-- Webhook url should be specified separately in a local `hook.txt` file
 - Saving of exhausted links should be made to a local `rss.txt` file
-- `hook.txt` and `rss.txt` should be located in the same directory as the executable
+- `rss.txt` should be located in the same directory as the executable
 
 ## Direct run
+Webhook url should be specified separately in a local `hook.txt` file. `hook.txt` should be located in the same directory as the executable.
+
 ```sh
 cd /path/to/rss
 
@@ -22,28 +23,22 @@ chmod +x ./rss.py
 ```
 
 ## Docker
+Webhook should be passed as an environment variable `HOOK` by specifying it in a separate `.env` file. This is done in order to separate sensitive information from the rest. `.env` should be located in the same directory as `docker-compose.yml`.
+
+```sh
+HOOK=<webhook>
+```
 
 ### Build and run
 ```sh
-cd /path/to/rss
+cd path/to/repository
 
-docker build --tag scpet-rss .
-
-docker container run -d scpet-rss
+docker-compose up -d
 ```
 
-### Stop
+### Stop and remove
 ```sh
-docker container stop <NAME>
-```
+cd path/to/repository
 
-The daemon can be stopped by referencing either the `CONTAINER ID` or `NAME`, both of which can be accessed under the running containers list:
-```sh
-docker ps | grep -E "NAMES|scpet-rss"
-```
-
-### Start
-It can be started again at any time with access to past links saved in the `rss.txt`:
-```sh
-docker container start <NAME>
+docker-compose down
 ```
