@@ -44,7 +44,7 @@ docker-compose down
 ```
 
 ### sdc
-Alternatively, [sdc](https://github.com/tainn/sdc) can be used to find and execute `docker-compose` without having to manually `cd` into the appropriate directory.
+Alternatively, [sdc](https://github.com/tainn/sdc) can be used to execute `docker-compose` without having to manually `cd` into the appropriate directory.
 
 ```sh
 sdc
