@@ -3,7 +3,8 @@
 import os
 import time
 import feedparser
-import ookami
+from feedparser import FeedParserDict
+from ookami import Ookami
 
 
 def main() -> None:
@@ -15,7 +16,7 @@ def main() -> None:
         news, obvestila = parse_rss()
         links = past_links()
 
-        form = ookami.Ookami()
+        form = Ookami()
 
         populate(news, 'Novica', links, form)
         populate(obvestila, 'Obvestilo', links, form)
@@ -50,7 +51,7 @@ def past_links() -> str:
         return rf.read()
 
 
-def populate(datatype: feedparser.FeedParserDict, typename: str, links: str, form) -> None:
+def populate(datatype: FeedParserDict, typename: str, links: str, form: Ookami) -> None:
     """Populates the form object with data in-place and writes exhausted links to the save file"""
 
     for entry in datatype['entries']:
@@ -73,7 +74,7 @@ def populate(datatype: feedparser.FeedParserDict, typename: str, links: str, for
         form.embeds_fields(name=typeid, value=f'[{summary}]({link})\n{datetime}', inline=True)
 
 
-def post(form, hook: str) -> None:
+def post(form: Ookami, hook: str) -> None:
     """Creates a post request through a webhook if any fields were added"""
 
     if form.embeds_fields_count():
