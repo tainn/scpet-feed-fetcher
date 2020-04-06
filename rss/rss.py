@@ -3,7 +3,7 @@
 import os
 import time
 import feedparser
-from ookami import ookami
+import ookami
 
 
 def main() -> None:
@@ -50,7 +50,7 @@ def past_links() -> str:
         return rf.read()
 
 
-def populate(datatype, typename: str, links: str, form) -> None:
+def populate(datatype: feedparser.FeedParserDict, typename: str, links: str, form) -> None:
     """Populates the form object with data in-place and writes exhausted links to the save file"""
 
     for entry in datatype['entries']:
