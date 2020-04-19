@@ -43,7 +43,7 @@ cd path/to/repository
 docker-compose down
 ```
 
-### sdc
+### Seek docker-compose
 Alternatively, [sdc](https://github.com/tainn/sdc) can be used to execute `docker-compose` without having to manually `cd` into the appropriate directory.
 
 ```sh
