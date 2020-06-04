@@ -8,8 +8,8 @@ Automated discord webhook posting of entries published to the two primary scpet 
 `scpet-rss` requires the [feedparser](https://github.com/kurtmckee/feedparser) and [ookami](https://github.com/tainn/ookami) packages in order to parse and manipulate discord webhook data respectively.
 
 ## Usage
-- Saving of exhausted links should be made to a local `rss.txt` file
-- `rss.txt` should be located in the same directory as the executable
+- Saving of exhausted links should be made to a local `links.log` file
+- `links.log` should be located in the same directory as the executable
 
 ## Direct run
 Webhook url should be specified separately in a local `hook.txt` file. `hook.txt` should be located in the same directory as the executable.

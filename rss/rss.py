@@ -47,7 +47,7 @@ def parse_rss() -> tuple:
 def past_links() -> str:
     """Reads and returns past links from a save file"""
 
-    with open('rss.txt', 'r') as rf:
+    with open('links.log', 'r') as rf:
         return rf.read()
 
 
@@ -68,7 +68,7 @@ def populate(datatype: FeedParserDict, typename: str, links: str, form: Ookami) 
         summary = entry['description'].split('&lt;br&gt;')[0]
         datetime = ' '.join(entry['published'].split()[0:4])
 
-        with open('rss.txt', 'a') as wf:
+        with open('links.log', 'a') as wf:
             wf.write(f'{link}\n')
 
         form.embeds_fields(name=typeid, value=f'[{summary}]({link})\n{datetime}', inline=True)
