@@ -5,6 +5,7 @@ import time
 import feedparser
 from feedparser import FeedParserDict
 from ookami import Ookami
+from typing import Tuple
 
 
 def main() -> None:
@@ -12,11 +13,13 @@ def main() -> None:
     initializes the default webhook form, calls the webhook population, and makes a post request"""
 
     while True:
-        hook = os.environ['HOOK'] if os.getenv('TOKEN') else get_hook()
+        hook: str = os.environ['HOOK'] if os.getenv('TOKEN') else get_hook()
+        news: FeedParserDict
+        obvestila: FeedParserDict
         news, obvestila = parse_rss()
-        links = past_links()
+        links: str = past_links()
 
-        form = Ookami()
+        form: Ookami = Ookami()
 
         populate(news, 'Novica', links, form)
         populate(obvestila, 'Obvestilo', links, form)
@@ -32,14 +35,14 @@ def get_hook() -> str:
         return rf.read().strip()
 
 
-def parse_rss() -> tuple:
+def parse_rss() -> Tuple[FeedParserDict, FeedParserDict]:
     """Returns the parsed rss feeds"""
 
-    news_url = 'https://vss.scpet.si/vss/rss.php?sec=news'
-    news = feedparser.parse(news_url)
+    news_url: str = 'https://vss.scpet.si/vss/rss.php?sec=news'
+    news: FeedParserDict = feedparser.parse(news_url)
 
-    obvestila_url = 'https://vss.scpet.si/vss/rss.php?sec=obvestila'
-    obvestila = feedparser.parse(obvestila_url)
+    obvestila_url: str = 'https://vss.scpet.si/vss/rss.php?sec=obvestila'
+    obvestila: FeedParserDict = feedparser.parse(obvestila_url)
 
     return news, obvestila
 
@@ -59,14 +62,14 @@ def populate(datatype: FeedParserDict, typename: str, links: str, form: Ookami) 
         if 'EKO' in entry['title'] and 'TK' not in entry['title']:
             continue
 
-        link = entry["link"].replace('www.scpet.net', 'vss.scpet.si')
+        link: str = entry["link"].replace('www.scpet.net', 'vss.scpet.si')
 
         if link in links:
             continue
 
-        typeid = f'{typename} (id {link.split("=")[-1]})'
-        summary = entry['description'].split('&lt;br&gt;')[0]
-        datetime = ' '.join(entry['published'].split()[0:4])
+        typeid: str = f'{typename} (id {link.split("=")[-1]})'
+        summary: str = entry['description'].split('&lt;br&gt;')[0]
+        datetime: str = ' '.join(entry['published'].split()[0:4])
 
         with open('links.log', 'a') as wf:
             wf.write(f'{link}\n')
