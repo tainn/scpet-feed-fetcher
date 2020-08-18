@@ -11,7 +11,7 @@ from ookami import Ookami
 
 def main() -> None:
     """
-    Accepts the webhook url, rss feeds, and past links from a save file,
+    Accepts the webhook url, fetcher feeds, and past links from a save file,
     initializes the default webhook form, calls the webhook population, and makes a post request
     """
     while True:
@@ -40,7 +40,7 @@ def get_hook() -> str:
 
 def parse_rss() -> Tuple[FeedParserDict, FeedParserDict]:
     """
-    Returns the parsed rss feeds
+    Returns the parsed fetcher feeds
     """
     news_url: str = 'https://vss.scpet.si/vss/rss.php?sec=news'
     news: FeedParserDict = feedparser.parse(news_url)

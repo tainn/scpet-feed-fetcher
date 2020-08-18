@@ -6,4 +6,4 @@ services:
       context: .
     restart: always
     volumes:
-      - ./rss/rss.txt:/rss/rss.txt
+      - ./fetcher/links.log:/fetcher/links.log
