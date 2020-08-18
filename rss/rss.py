@@ -2,16 +2,18 @@
 
 import os
 import time
+from typing import Tuple
+
 import feedparser
 from feedparser import FeedParserDict
 from ookami import Ookami
-from typing import Tuple
 
 
 def main() -> None:
-    """Accepts the webhook url, rss feeds, and past links from a save file,
-    initializes the default webhook form, calls the webhook population, and makes a post request"""
-
+    """
+    Accepts the webhook url, rss feeds, and past links from a save file,
+    initializes the default webhook form, calls the webhook population, and makes a post request
+    """
     while True:
         hook: str = os.environ['HOOK'] if os.getenv('TOKEN') else get_hook()
         news: FeedParserDict
@@ -29,15 +31,17 @@ def main() -> None:
 
 
 def get_hook() -> str:
-    """Reads and returns a webhook url from a file"""
-
+    """
+    Reads and returns a webhook url from a file
+    """
     with open('hook.txt', 'r') as rf:
         return rf.read().strip()
 
 
 def parse_rss() -> Tuple[FeedParserDict, FeedParserDict]:
-    """Returns the parsed rss feeds"""
-
+    """
+    Returns the parsed rss feeds
+    """
     news_url: str = 'https://vss.scpet.si/vss/rss.php?sec=news'
     news: FeedParserDict = feedparser.parse(news_url)
 
@@ -48,15 +52,17 @@ def parse_rss() -> Tuple[FeedParserDict, FeedParserDict]:
 
 
 def past_links() -> str:
-    """Reads and returns past links from a save file"""
-
+    """
+    Reads and returns past links from a save file
+    """
     with open('links.log', 'r') as rf:
         return rf.read()
 
 
 def populate(datatype: FeedParserDict, typename: str, links: str, form: Ookami) -> None:
-    """Populates the form object with data in-place and writes exhausted links to the save file"""
-
+    """
+    Populates the form object with data in-place and writes exhausted links to the save file
+    """
     for entry in datatype['entries']:
 
         if 'EKO' in entry['title'] and 'TK' not in entry['title']:
@@ -78,8 +84,9 @@ def populate(datatype: FeedParserDict, typename: str, links: str, form: Ookami) 
 
 
 def post(form: Ookami, hook: str) -> None:
-    """Creates a post request through a webhook if any fields were added"""
-
+    """
+    Creates a post request through a webhook if any fields were added
+    """
     if form.embeds_fields_count():
         form.post(hook)
 
