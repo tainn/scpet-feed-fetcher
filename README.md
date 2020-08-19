@@ -1,15 +1,15 @@
 # scpet-feed-fetcher
-Automated fetching, parsing and channel forwarding of entries published to the two primary scpet [news](https://vss.scpet.si/vss/rss.php?sec=news) and [updates](https://vss.scpet.si/vss/rss.php?sec=obvestila) rss feeds.
+`fetcher` is a script that enables automated fetching, parsing and channel forwarding of entries published to the two primary scpet rss feeds: [news](https://vss.scpet.si/vss/rss.php?sec=news) and [updates](https://vss.scpet.si/vss/rss.php?sec=obvestila).
 
 ## Requirements
 - [feedparser](https://github.com/kurtmckee/feedparser) package
 - [ookami](https://github.com/tainn/ookami) package
 
 ## Usage
-Saving of exhausted links should be made to a local `links.log` file, located in the same directory as the executable.
+Saving of exhausted links should be made to a local `links.log` file, located in the `data` directory.
 
 ### `opt 1` Direct run
-Webhook url should be specified separately in a local `hook.txt` file, located in the same directory as the executable.
+Webhook url should be specified separately in a local `hook.txt` file, located in the `data` directory.
 
 ```sh
 ./rss.py

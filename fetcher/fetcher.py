@@ -34,7 +34,7 @@ def get_hook() -> str:
     """
     Reads and returns a webhook url from a file
     """
-    with open('hook.txt', 'r') as rf:
+    with open('../data/hook.txt', 'r') as rf:
         return rf.read().strip()
 
 
@@ -55,7 +55,7 @@ def past_links() -> str:
     """
     Reads and returns past links from a save file
     """
-    with open('links.log', 'r') as rf:
+    with open('../data/links.log', 'r') as rf:
         return rf.read()
 
 
@@ -77,7 +77,7 @@ def populate(datatype: FeedParserDict, typename: str, links: str, form: Ookami) 
         summary: str = entry['description'].split('&lt;br&gt;')[0]
         datetime: str = ' '.join(entry['published'].split()[0:4])
 
-        with open('links.log', 'a') as wf:
+        with open('../data/links.log', 'a') as wf:
             wf.write(f'{link}\n')
 
         form.embeds_fields(name=typeid, value=f'[{summary}]({link})\n{datetime}', inline=True)
