@@ -1,9 +1,8 @@
 FROM fedora:31
 
-COPY fetcher/ /fetcher/
+COPY fetcher /fetcher
+COPY data /data
 
 RUN dnf install -y git python3-pip && pip3 install --user feedparser git+git://github.com/tainn/ookami.git
 
-WORKDIR /fetcher
-
-CMD ["/fetcher/fetcher.py"]
+CMD /fetcher/fetcher.py

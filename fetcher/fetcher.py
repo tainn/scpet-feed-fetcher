@@ -92,4 +92,6 @@ def post(form: Ookami, hook: str) -> None:
 
 
 if __name__ == '__main__':
+    path: str = os.path.dirname(__file__)
+    os.chdir(path)
     main()

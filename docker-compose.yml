@@ -1,9 +1,9 @@
 version: '3'
 services:
 
-  rss:
+  fetcher:
     build:
       context: .
     restart: always
     volumes:
-      - ./fetcher/links.log:/fetcher/links.log
+      - ./data/links.log:/data/links.log
