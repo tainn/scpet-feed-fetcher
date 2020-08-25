@@ -12,7 +12,7 @@ Saving of exhausted links should be made to a local `links.log` file, located in
 Webhook url should be specified separately in a local `hook.txt` file, located in the `data` directory.
 
 ```sh
-./rss.py
+./fetcher.py
 ```
 
 ### `opt 2` Docker
