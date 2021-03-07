@@ -22,7 +22,7 @@ Webhook should be passed as an environment variable `HOOK` by specifying it in a
 HOOK=<webhook>
 ```
 
-Build and run a container as a daemon, as well as stop and remove it
+Build and run a container as a daemon, as well as stop and remove it.
 ```sh
 docker-compose up -d
 

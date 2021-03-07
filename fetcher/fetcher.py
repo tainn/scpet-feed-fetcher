@@ -58,8 +58,11 @@ def past_links() -> str:
     Read the data of exhausted links from a log file and returns it as a single string
     :return: exhausted links as a single string
     """
-    with open('../data/links.log', 'r') as rf:
-        return rf.read()
+    try:
+        with open('../data/links.log', 'r') as rf:
+            return rf.read()
+    except FileNotFoundError:
+        open('../data/links.log', 'a').close()
 
 
 def populate(datatype: FeedParserDict, typename: str, links: str, form: Ookami) -> None:
