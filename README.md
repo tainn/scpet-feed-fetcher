@@ -8,21 +8,21 @@
 ## Usage
 Saving of exhausted links should be made to a local `links.log` file, located in the `data` directory.
 
-### `opt 1` Direct run
+### Opt `1.0` : Direct run
 Webhook url should be specified separately in a local `hook.txt` file, located in the `data` directory.
 
 ```sh
 ./fetcher.py
 ```
 
-### `opt 2` Docker
+### Opt `2.0` : Docker
 Webhook should be passed as an environment variable `HOOK` by specifying it in a separate `.env` file. This is done in order to separate sensitive information from the rest. `.env` should be located in the same directory as `docker-compose.yml`.
 
 ```sh
 HOOK=<webhook>
 ```
 
-Build and run, stop and remove
+Build and run a container as a daemon, as well as stop and remove it
 ```sh
 docker-compose up -d
 

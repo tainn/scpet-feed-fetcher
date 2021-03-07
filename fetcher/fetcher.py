@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import sys
 import os
 import time
 from typing import Tuple
@@ -11,28 +12,28 @@ from ookami import Ookami
 
 def main() -> None:
     """
-    Accepts the webhook url, fetcher feeds, and past links from a save file,
-    initializes the default webhook form, calls the webhook population, and makes a post request
+    Central point of the program, invoking sub-functions and fetching their potential returns
+    :return: None
     """
-    while True:
-        hook: str = os.environ['HOOK'] if os.getenv('TOKEN') else get_hook()
-        news: FeedParserDict
-        obvestila: FeedParserDict
-        news, obvestila = parse_rss()
-        links: str = past_links()
+    hook: str = os.environ['HOOK'] if os.getenv('TOKEN') else get_hook()
 
-        form: Ookami = Ookami()
+    news: FeedParserDict
+    obvestila: FeedParserDict
+    news, obvestila = parse_rss()
 
-        populate(news, 'Novica', links, form)
-        populate(obvestila, 'Obvestilo', links, form)
+    links: str = past_links()
+    form: Ookami = Ookami()
 
-        post(form, hook)
-        time.sleep(300)
+    populate(news, 'Novica', links, form)
+    populate(obvestila, 'Obvestilo', links, form)
+
+    post(form, hook)
 
 
 def get_hook() -> str:
     """
-    Reads and returns a webhook url from a file
+    Reads the webhook url from file and returns it
+    :return: webhook url as a string
     """
     with open('../data/hook.txt', 'r') as rf:
         return rf.read().strip()
@@ -40,7 +41,8 @@ def get_hook() -> str:
 
 def parse_rss() -> Tuple[FeedParserDict, FeedParserDict]:
     """
-    Returns the parsed fetcher feeds
+    Requests the news and obvestila rss feeds, parses them (xml format) and returns them as a tuple
+    :return: tuple-packed pair of parsed xml rss feed objects
     """
     news_url: str = 'https://vss.scpet.si/vss/rss.php?sec=news'
     news: FeedParserDict = feedparser.parse(news_url)
@@ -53,7 +55,8 @@ def parse_rss() -> Tuple[FeedParserDict, FeedParserDict]:
 
 def past_links() -> str:
     """
-    Reads and returns past links from a save file
+    Read the data of exhausted links from a log file and returns it as a single string
+    :return: exhausted links as a single string
     """
     with open('../data/links.log', 'r') as rf:
         return rf.read()
@@ -61,7 +64,13 @@ def past_links() -> str:
 
 def populate(datatype: FeedParserDict, typename: str, links: str, form: Ookami) -> None:
     """
-    Populates the form object with data in-place and writes exhausted links to the save file
+    Filters rss entries by content, builds a discord form object via the ookami class,
+    saves exhausted links to a local log file and populates the form object
+    :param datatype: parsed xml rss feed object
+    :param typename: string-based type tag
+    :param links: exhausted links as a single string
+    :param form: empty shell of a form object of ookami class
+    :return: None
     """
     for entry in datatype['entries']:
 
@@ -85,7 +94,10 @@ def populate(datatype: FeedParserDict, typename: str, links: str, form: Ookami) 
 
 def post(form: Ookami, hook: str) -> None:
     """
-    Creates a post request through a webhook if any fields were added
+    Pushes a webhook post to the specified channel webhook url
+    :param form: built and populated ookami form
+    :param hook: discord channel webhook url
+    :return: None
     """
     if form.embeds_fields_count():
         form.post(hook)
@@ -94,4 +106,11 @@ def post(form: Ookami, hook: str) -> None:
 if __name__ == '__main__':
     path: str = os.path.dirname(__file__)
     os.chdir(path)
-    main()
+
+    while True:
+        try:
+            main()
+        except Exception as exc:
+            sys.exit(f'Exception during main() funct execution: {exc}')
+
+        time.sleep(300)  # 5 minutes

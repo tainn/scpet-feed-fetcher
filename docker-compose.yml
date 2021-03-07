@@ -1,9 +1,21 @@
 version: '3'
-services:
 
+x-common:
+  &default-common
+  build:
+    context: .
+  restart: always
+  volumes:
+    - ./data:/data
+  env_file:
+    - .env
+  logging:
+    options:
+      max-size: "100m"
+      max-file: "5"
+
+services:
   fetcher:
-    build:
-      context: .
-    restart: always
-    volumes:
-      - ./data/links.log:/data/links.log
+    <<: *default-common
+    working_dir: /fetcher
+    command: python3 -u ./fetcher.py
