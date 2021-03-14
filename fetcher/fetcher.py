@@ -12,7 +12,8 @@ from ookami import Ookami
 
 def main() -> None:
     """
-    Central point of the program, invoking sub-functions and fetching their potential returns
+    Central point of the program, invoking sub-functions and
+    fetching their potential returns
     :return: None
     """
     hook: str = os.environ['HOOK'] if os.getenv('TOKEN') else get_hook()
@@ -41,7 +42,8 @@ def get_hook() -> str:
 
 def parse_rss() -> Tuple[FeedParserDict, FeedParserDict]:
     """
-    Requests the news and obvestila rss feeds, parses them (xml format) and returns them as a tuple
+    Requests the news and obvestila rss feeds,
+    parses them (xml format) and returns them as a tuple
     :return: tuple-packed pair of parsed xml rss feed objects
     """
     news_url: str = 'https://vss.scpet.si/vss/rss.php?sec=news'
@@ -55,7 +57,8 @@ def parse_rss() -> Tuple[FeedParserDict, FeedParserDict]:
 
 def past_links() -> str:
     """
-    Read the data of exhausted links from a log file and returns it as a single string
+    Read the data of exhausted links from a log file and
+    returns it as a single string
     :return: exhausted links as a single string
     """
     try:
